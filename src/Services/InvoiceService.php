@@ -4,36 +4,20 @@ namespace Zsolt148\Szamlazzhu\Services;
 
 use zoparga\SzamlazzHu\Client\Client;
 use zoparga\SzamlazzHu\Contracts\ArrayableItem;
-use zoparga\SzamlazzHu\Internal\Support\PaymentMethods;
 use zoparga\SzamlazzHu\Invoice;
 use Zsolt148\Szamlazzhu\Events\CreateInvoiceEvent;
 use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
 use Zsolt148\Szamlazzhu\Models\Invoice as InvoiceModel;
 
-class InvoiceService
+class InvoiceService extends Service
 {
-    use PaymentMethods;
-
-    public function dispatchCreate(Invoiceable $invoiceable, ...$args): mixed
+    public function create(Invoiceable $invoiceable, ...$args): mixed
     {
         return CreateInvoiceEvent::dispatch($invoiceable, ...$args);
     }
 
-    public function create(Invoiceable $invoiceable, bool $event = true): mixed
+    public function cancel(InvoiceModel $invoice): false|InvoiceModel
     {
-        if ($event) {
-            return CreateInvoiceEvent::dispatch($invoiceable);
-        }
-
-        return $this->createNow($invoiceable);
-    }
-
-    public function cancel(InvoiceModel $invoice, bool $event = true): mixed
-    {
-        if ($event) {
-
-        }
-
         return $this->cancelNow($invoice);
     }
 
@@ -84,7 +68,7 @@ class InvoiceService
         $model->setInvoice($invoice->invoiceNumber);
         $model->save();
 
-        if (config('szamlazz-hu.send_notifications')) {
+        if ($this->sendNotifications()) {
             $invoiceable->sendInvoiceNotification($invoice);
         }
 
@@ -118,40 +102,10 @@ class InvoiceService
             ->save();
 
         // TODO send cancel notification
-        if (config('szamlazz-hu.send_notifications')) {
+        if ($this->sendNotifications()) {
 
         }
 
         return $model;
-    }
-
-    protected function enabled(): bool
-    {
-        if (config('szamlazz-hu.enabled')) {
-
-            throw_if(
-                config('szamlazz-hu.client.credentials.api_key') == null,
-                'RuntimeException',
-                'Szamlazzhu API key is missing!'
-            );
-
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function paymentMethod(string $paymentMethod)
-    {
-        switch ($paymentMethod) {
-            case 'cash':
-                return $this->getPaymentMethod('cash');
-            case 'simplepay':
-                return $this->getPaymentMethod('otp_simple');
-            case 'szep':
-                return $this->getPaymentMethod('szép_card');
-        }
-
-        throw new \InvalidArgumentException("Unsupported gateway [$paymentMethod]!");
     }
 }

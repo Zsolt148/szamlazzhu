@@ -21,7 +21,7 @@ class InvoiceController extends Controller
             ]);
         }
 
-        Szamlazzhu::invoice()->dispatchCreate($model);
+        Szamlazzhu::invoice()->create($model);
 
         return response()->json([
             'success' => 'Számla készítés sikeresen elkezdődött',
