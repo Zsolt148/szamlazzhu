@@ -10,25 +10,17 @@ use Zsolt148\Szamlazzhu\Events\CreateReceiptEvent;
 use Zsolt148\Szamlazzhu\Interfaces\Receiptable;
 use Zsolt148\Szamlazzhu\Models\Receipt as ReceiptModel;
 
-class ReceiptService
+class ReceiptService extends Service
 {
     use PaymentMethods;
 
-    public function create(Receiptable $receiptable, bool $event = true): mixed
+    public function create(Receiptable $receiptable, ...$args): mixed
     {
-        if ($event) {
-            return CreateReceiptEvent::dispatch($receiptable);
-        }
-
-        return $this->createNow($receiptable);
+        return CreateReceiptEvent::dispatch($receiptable, ...$args);
     }
 
-    public function cancel(ReceiptModel $receipt, bool $event = true): mixed
+    public function cancel(ReceiptModel $receipt): false|ReceiptModel
     {
-        if ($event) {
-
-        }
-
         return $this->cancelNow($receipt);
     }
 
@@ -74,7 +66,7 @@ class ReceiptService
         $model->setReceipt($receipt->receiptNumber);
         $model->save();
 
-        if (config('szamlazz-hu.send_notifications')) {
+        if ($this->sendNotifications()) {
             $receiptable->sendReceiptNotification($model);
         }
 
@@ -108,40 +100,10 @@ class ReceiptService
             ->save();
 
         // TODO send cancel notification
-        if (config('szamlazz-hu.send_notifications')) {
+        if ($this->sendNotifications()) {
 
         }
 
         return $model;
-    }
-
-    protected function enabled(): bool
-    {
-        if (config('szamlazz-hu.enabled')) {
-
-            throw_if(
-                config('szamlazz-hu.client.credentials.api_key') == null,
-                'RuntimeException',
-                'Szamlazzhu API key is missing!'
-            );
-
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function paymentMethod(string $paymentMethod)
-    {
-        switch ($paymentMethod) {
-            case 'cash':
-                return $this->getPaymentMethod('cash');
-            case 'simplepay':
-                return $this->getPaymentMethod('otp_simple');
-            case 'szep':
-                return $this->getPaymentMethod('szép_card');
-        }
-
-        throw new \InvalidArgumentException("Unsupported gateway [$paymentMethod]!");
     }
 }

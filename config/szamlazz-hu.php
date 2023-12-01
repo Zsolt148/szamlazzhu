@@ -2,12 +2,24 @@
 
 return [
 
+    /**
+     * Global disabled/enable function
+     */
     'enabled' => env('SZAMLAZZ_HU_ENABLED', false),
 
+    /**
+     * Global discount disabled/enable function
+     */
     'discount_enabled' => env('SZAMLAZZ_HU_DISCOUNT_ENABLED', false),
 
+    /**
+     * Send invoice/receipt notifications
+     */
     'send_notifications' => env('SZAMLAZZ_HU_SEND_NOTIFICATIONS', true),
 
+    /**
+     * Create/cancel invoice/receipt routes
+     */
     'route' => [
         'prefix' => 'szamlazzhu',
         'name' => 'szamlazzhu.',
