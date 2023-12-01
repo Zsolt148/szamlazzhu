@@ -47,6 +47,12 @@ return [
 
     'send_notifications' => env('SZAMLAZZ_HU_SEND_NOTIFICATIONS', true),
 
+    'route' => [
+        'prefix' => 'szamlazzhu',
+        'name' => 'szamlazzhu.',
+        'middleware' => ['web'],
+    ],
+    
     /*
      * These merchant details will be used by default.
      * You can override these values.
