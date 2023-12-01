@@ -39,7 +39,7 @@ class SzamlazzhuServiceProvider extends PackageServiceProvider implements Deferr
     public function provides()
     {
         return [
-            'szamlazzhu'
+            'szamlazzhu',
         ];
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Zsolt148\Szamlazzhu\Traits;
 
-use Zsolt148\Szamlazzhu\Models\Invoice;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use zoparga\SzamlazzHu\Contracts\ArrayableCustomer;
+use Zsolt148\Szamlazzhu\Models\Invoice;
 
 trait HasInvoices
 {

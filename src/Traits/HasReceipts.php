@@ -2,10 +2,10 @@
 
 namespace Zsolt148\Szamlazzhu\Traits;
 
-use Zsolt148\Szamlazzhu\Models\Receipt;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
+use Zsolt148\Szamlazzhu\Models\Receipt;
 
 trait HasReceipts
 {
