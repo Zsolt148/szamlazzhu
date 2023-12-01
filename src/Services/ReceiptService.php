@@ -44,9 +44,9 @@ class ReceiptService
         $receipt->prefix = config('szamlazz-hu.prefix');
 
         if (app()->environment('production')) {
-            $receipt->orderNumber = $receiptable->getKey();
+            $receipt->orderNumber = (string) $receiptable->getKey();
         } else {
-            $receipt->orderNumber = (int) ($receiptable->getKey() + date('U'));
+            $receipt->orderNumber = (string) ($receiptable->getKey() + date('U'));
         }
 
         $receipt->currency = $receiptable->currency();

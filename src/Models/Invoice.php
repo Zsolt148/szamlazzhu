@@ -9,17 +9,17 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * App\Models\Invoice
- *
  * @property int $id
  * @property string $model_type
  * @property int $model_id
  * @property string $invoice_number
  * @property string $invoice_file
- * @property int $is_cancel
+ * @property bool $is_cancel
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Model|\Eloquent $invoiceable
+ * @property-read string $invoice_file_path
+ * @property-read string $invoice_file_url
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()

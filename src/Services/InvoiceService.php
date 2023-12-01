@@ -49,9 +49,9 @@ class InvoiceService
         $invoice->isPaid = $invoiceable->isPaid();
 
         if (app()->environment('production')) {
-            $invoice->orderNumber = $invoiceable->getKey();
+            $invoice->orderNumber = (string) $invoiceable->getKey();
         } else {
-            $invoice->orderNumber = (int) ($invoiceable->getKey() + date('U'));
+            $invoice->orderNumber = (string) ($invoiceable->getKey() + date('U'));
         }
 
         $invoice->invoiceLanguage = $invoiceable->invoiceLanguage();

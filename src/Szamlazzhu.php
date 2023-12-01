@@ -2,6 +2,9 @@
 
 namespace Zsolt148\Szamlazzhu;
 
+use Zsolt148\Szamlazzhu\Services\InvoiceService;
+use Zsolt148\Szamlazzhu\Services\ReceiptService;
+
 class Szamlazzhu
 {
     protected InvoiceService $invoiceService;

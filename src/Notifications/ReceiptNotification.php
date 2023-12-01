@@ -6,23 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Zsolt148\Models\Applicant;
 use Zsolt148\Szamlazzhu\Models\Receipt;
 
 class ReceiptNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public Applicant $applicant;
-
     public Receipt $receipt;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Applicant $applicant, Receipt $receipt)
+    public function __construct(Receipt $receipt)
     {
-        $this->applicant = $applicant;
         $this->receipt = $receipt;
     }
 
@@ -43,7 +39,7 @@ class ReceiptNotification extends Notification implements ShouldQueue
     {
         $mail = (new MailMessage)
             ->subject('Bizonylat érkezett')
-            ->greeting("Kedves {$this->applicant->name}!")
+            ->greeting("Kedves {$notifiable->name}!")
             ->line('Új bizonylat érkezett!');
 
         $mail->attach($this->receipt->receipt_file_path, [

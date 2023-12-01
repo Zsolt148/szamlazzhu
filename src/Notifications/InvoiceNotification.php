@@ -6,23 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Zsolt148\Models\Applicant;
 use Zsolt148\Szamlazzhu\Models\Invoice;
 
 class InvoiceNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public Applicant $applicant;
-
     public Invoice $invoice;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Applicant $applicant, Invoice $invoice)
+    public function __construct(Invoice $invoice)
     {
-        $this->applicant = $applicant;
         $this->invoice = $invoice;
     }
 
@@ -43,7 +39,7 @@ class InvoiceNotification extends Notification implements ShouldQueue
     {
         $mail = (new MailMessage)
             ->subject('Számlád érkezett')
-            ->greeting("Kedves {$this->applicant->name}!")
+            ->greeting("Kedves {$notifiable->name}!")
             ->line('Új számlád érkezett!');
 
         $mail->attach($this->invoice->invoice_file_path, [
