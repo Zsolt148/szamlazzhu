@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Szamlazzhu\Traits;
+namespace Zsolt148\Szamlazzhu\Traits;
 
-use App\Szamlazzhu\Models\Invoice;
+use Zsolt148\Szamlazzhu\Models\Invoice;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
