@@ -6,7 +6,6 @@ if (! function_exists('szamlazzhu')) {
      */
     function szamlazzhu(string $type = null)
     {
-
         if (is_null($type)) {
             return app('szamlazzhu');
         }
