@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $is_cancel
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Model|\Eloquent $invoiceable
+ * @property-read Model|\Eloquent $model
  * @property-read string $invoice_file_path
  * @property-read string $invoice_file_url
  *
@@ -54,7 +54,7 @@ class Invoice extends Model
         'invoice_file_url',
     ];
 
-    public function invoiceable(): MorphTo
+    public function model(): MorphTo
     {
         return $this->morphTo('model')->withTrashed();
     }

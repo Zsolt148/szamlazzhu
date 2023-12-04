@@ -49,7 +49,7 @@ class InvoiceService extends Service
         $invoice->exchangeRateBank = 'MNB';
         $invoice->exchangeRate = 1;
 
-        $invoice->setCustomer($invoiceable);
+        $invoice->setCustomer($invoiceable->customer());
 
         $invoiceable->items()->each(function (ArrayableItem $item) use ($invoice) {
             $invoice->addItem($item);

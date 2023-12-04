@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $is_cancel
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Model|\Eloquent $receiptable
+ * @property-read Model|\Eloquent $model
  * @property-read string $receipt_file_path
  * @property-read string $receipt_file_url
  *
@@ -54,7 +54,7 @@ class Receipt extends Model
         'receipt_file_url',
     ];
 
-    public function receiptable(): MorphTo
+    public function model(): MorphTo
     {
         return $this->morphTo('model')->withTrashed();
     }
