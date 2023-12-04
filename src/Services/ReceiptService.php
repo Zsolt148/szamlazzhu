@@ -62,7 +62,7 @@ class ReceiptService extends Service
         $receipt->save();
 
         $model = new ReceiptModel();
-        $model->receiptable()->associate($receiptable);
+        $model->model()->associate($receiptable);
         $model->setReceipt($receipt->receiptNumber);
         $model->save();
 

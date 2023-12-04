@@ -64,7 +64,7 @@ class InvoiceService extends Service
         $invoice->save();
 
         $model = new InvoiceModel();
-        $model->invoiceable()->associate($invoiceable);
+        $model->model()->associate($invoiceable);
         $model->setInvoice($invoice->invoiceNumber);
         $model->save();
 
