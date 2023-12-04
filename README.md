@@ -5,6 +5,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/zsolt148/szamlazzhu/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/zsolt148/szamlazzhu/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/zsolt148/szamlazzhu.svg?style=flat-square)](https://packagist.org/packages/zsolt148/szamlazzhu)
 
+Built on top of https://github.com/zoparga/laravel-szamlazzhu Laravel szamlazzhu as an simple Facade.
+
 ## Installation
 
 You can install the package via composer:
@@ -162,6 +164,43 @@ Szamlazzhu::receipt()->createNow($invoiceable);
 // Cancel invoice/receipt
 Szamlazzhu::invoice()->cancel($invoice);
 Szamlazzhu::receipt()->cancel($receipt);
+```
+
+#### The model you want to be invoiceable/receiptable should implement the Invoiceable/Receiptable interface, with HasInvoice/HasReceipt traits.
+
+```php
+use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
+use Zsolt148\Szamlazzhu\Traits\HasInvoices;
+
+class Order implements Invoiceable 
+{
+    use HasInvoices;
+    ...
+}
+```
+
+#### The model you want be as invoice/receipt items should implement the ArrayableItem
+If the model will has only one item, it can be the Order model as well.
+
+```php
+use zoparga\SzamlazzHu\Contracts\ArrayableItem;
+
+class OrderItem implements ArrayableItem
+{
+    ...
+}
+```
+
+#### Using the default routes, it should receive a class string and an ID. 
+Returns a json response
+
+```js
+await axios.post(route('szamlazzhu.create-receipt'), {
+    class: this.model.class,
+    id: this.model.id,
+}).then(resp => {
+    console.log(resp.data)
+})
 ```
 
 ## Testing
