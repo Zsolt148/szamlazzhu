@@ -39,7 +39,7 @@
             "Zsolt148\\Szamlazzhu\\Database\\Factories\\": "database/factories/"
         },
         "files": [
-            "src/helpers.php"
+            "src/Helpers/helpers.php"
         ]
     },
     "autoload-dev": {
