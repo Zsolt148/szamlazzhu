@@ -6,14 +6,18 @@ use zoparga\SzamlazzHu\Client\Client;
 use zoparga\SzamlazzHu\Contracts\ArrayableItem;
 use zoparga\SzamlazzHu\Invoice;
 use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
-use Zsolt148\Szamlazzhu\Events\CreateInvoiceEvent;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreatedCancelInvoice;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreatedInvoice;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreateInvoice;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreatingCancelInvoice;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreatingInvoice;
 use Zsolt148\Szamlazzhu\Models\Invoice as InvoiceModel;
 
 class InvoiceService extends Service
 {
     public function create(Invoiceable $invoiceable, ...$args): mixed
     {
-        return CreateInvoiceEvent::dispatch($invoiceable, ...$args);
+        return event(new CreateInvoice($invoiceable, ...$args));
     }
 
     public function cancel(InvoiceModel $invoice): false|InvoiceModel
@@ -26,6 +30,8 @@ class InvoiceService extends Service
         if (! $this->enabled()) {
             return false;
         }
+
+        event(new CreatingInvoice($invoiceable));
 
         $invoiceable->eagerLoad();
 
@@ -68,6 +74,8 @@ class InvoiceService extends Service
         $model->setInvoice($invoice->invoiceNumber);
         $model->save();
 
+        event(new CreatedInvoice($invoiceable));
+
         if ($this->sendNotifications()) {
             $invoiceable->sendInvoiceNotification($invoice);
         }
@@ -80,6 +88,8 @@ class InvoiceService extends Service
         if (! $this->enabled()) {
             return $model;
         }
+
+        event(new CreatingCancelInvoice($model));
 
         $client = app(Client::class);
 
@@ -100,6 +110,8 @@ class InvoiceService extends Service
         $model
             ->setInvoice($newInvoice->invoiceNumber, isCancel: true)
             ->save();
+
+        event(new CreatedCancelInvoice($model));
 
         // TODO send cancel notification
         if ($this->sendNotifications()) {

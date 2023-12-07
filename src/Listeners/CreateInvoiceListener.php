@@ -4,7 +4,7 @@ namespace Zsolt148\Szamlazzhu\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Zsolt148\Szamlazzhu\Events\CreateInvoiceEvent;
+use Zsolt148\Szamlazzhu\Events\Invoice\CreateInvoice;
 use Zsolt148\Szamlazzhu\Facades\Szamlazzhu;
 
 class CreateInvoiceListener implements ShouldQueue
@@ -16,7 +16,7 @@ class CreateInvoiceListener implements ShouldQueue
         //
     }
 
-    public function handle(CreateInvoiceEvent $event): void
+    public function handle(CreateInvoice $event): void
     {
         $invoiceable = $event->getInvoiceable();
 

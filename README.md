@@ -5,7 +5,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/zsolt148/szamlazzhu/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/zsolt148/szamlazzhu/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/zsolt148/szamlazzhu.svg?style=flat-square)](https://packagist.org/packages/zsolt148/szamlazzhu)
 
-Built on top of https://github.com/zoparga/laravel-szamlazzhu Laravel szamlazzhu as an simple Facade.
+Built on top of https://github.com/zoparga/laravel-szamlazzhu Laravel-szamlazzhu package as a simple Facade. 
+Storing invoices/receipts in models with polymorphic relations.
 
 ## Installation
 

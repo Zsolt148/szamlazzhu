@@ -1,27 +1,27 @@
 <?php
 
-namespace Zsolt148\Szamlazzhu\Events;
+namespace Zsolt148\Szamlazzhu\Events\Invoice;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Zsolt148\Szamlazzhu\Contracts\Receiptable;
+use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
 
-class CreateReceiptEvent
+class CreatedCancelInvoice
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected Receiptable $receiptable;
+    protected Invoiceable $invoiceable;
 
-    public function __construct(Receiptable $receiptable)
+    public function __construct(Invoiceable $invoiceable)
     {
-        $this->receiptable = $receiptable;
+        $this->invoiceable = $invoiceable;
     }
 
-    public function getReceiptable(): Receiptable
+    public function getInvoiceable(): Invoiceable
     {
-        return $this->receiptable;
+        return $this->invoiceable;
     }
 
     public function broadcastOn(): array

@@ -21,6 +21,7 @@ class SzamlazzhuServiceProvider extends PackageServiceProvider implements Deferr
             ->name('szamlazzhu')
             ->hasConfigFile('szamlazz-hu')
             ->hasMigration('create_szamlazzhu_tables')
+            ->publishesServiceProvider('SzamlazzhuServiceProvider')
             ->hasRoute('web');
     }
 

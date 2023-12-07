@@ -7,7 +7,9 @@ use zoparga\SzamlazzHu\Contracts\ArrayableItem;
 use zoparga\SzamlazzHu\Internal\Support\PaymentMethods;
 use zoparga\SzamlazzHu\Receipt;
 use Zsolt148\Szamlazzhu\Contracts\Receiptable;
-use Zsolt148\Szamlazzhu\Events\CreateReceiptEvent;
+use Zsolt148\Szamlazzhu\Events\Receipt\CreatedReceipt;
+use Zsolt148\Szamlazzhu\Events\Receipt\CreateReceipt;
+use Zsolt148\Szamlazzhu\Events\Receipt\CreatingReceipt;
 use Zsolt148\Szamlazzhu\Models\Receipt as ReceiptModel;
 
 class ReceiptService extends Service
@@ -16,7 +18,7 @@ class ReceiptService extends Service
 
     public function create(Receiptable $receiptable, ...$args): mixed
     {
-        return CreateReceiptEvent::dispatch($receiptable, ...$args);
+        return event(new CreateReceipt($receiptable, ...$args));
     }
 
     public function cancel(ReceiptModel $receipt): false|ReceiptModel
@@ -29,6 +31,8 @@ class ReceiptService extends Service
         if (! $this->enabled()) {
             return false;
         }
+
+        event(new CreatingReceipt($receiptable));
 
         $receiptable->eagerLoad();
 
@@ -65,6 +69,8 @@ class ReceiptService extends Service
         $model->model()->associate($receiptable);
         $model->setReceipt($receipt->receiptNumber);
         $model->save();
+
+        event(new CreatedReceipt($receiptable));
 
         if ($this->sendNotifications()) {
             $receiptable->sendReceiptNotification($model);
