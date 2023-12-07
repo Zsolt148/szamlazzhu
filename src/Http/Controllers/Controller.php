@@ -7,8 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
-use Zsolt148\Szamlazzhu\Interfaces\Receiptable;
+use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
+use Zsolt148\Szamlazzhu\Contracts\Receiptable;
 
 class Controller extends BaseController
 {

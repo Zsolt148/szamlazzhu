@@ -7,7 +7,7 @@ use zoparga\SzamlazzHu\Contracts\ArrayableItem;
 use zoparga\SzamlazzHu\Internal\Support\PaymentMethods;
 use zoparga\SzamlazzHu\Receipt;
 use Zsolt148\Szamlazzhu\Events\CreateReceiptEvent;
-use Zsolt148\Szamlazzhu\Interfaces\Receiptable;
+use Zsolt148\Szamlazzhu\Contracts\Receiptable;
 use Zsolt148\Szamlazzhu\Models\Receipt as ReceiptModel;
 
 class ReceiptService extends Service

@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
+use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
 
 class CreateInvoiceEvent
 {

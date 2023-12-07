@@ -1,6 +1,6 @@
 <?php
 
-namespace Zsolt148\Szamlazzhu\Interfaces;
+namespace Zsolt148\Szamlazzhu\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;

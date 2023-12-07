@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Zsolt148\Szamlazzhu\Interfaces\Receiptable;
+use Zsolt148\Szamlazzhu\Contracts\Receiptable;
 
 class CreateReceiptEvent
 {

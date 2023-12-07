@@ -169,7 +169,7 @@ Szamlazzhu::receipt()->cancel($receipt);
 #### The model you want to be invoiceable/receiptable should implement the Invoiceable/Receiptable interface, with HasInvoice/HasReceipt traits.
 
 ```php
-use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
+use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
 use Zsolt148\Szamlazzhu\Traits\HasInvoices;
 
 class Order implements Invoiceable 

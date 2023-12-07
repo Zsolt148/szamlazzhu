@@ -6,7 +6,7 @@ use zoparga\SzamlazzHu\Client\Client;
 use zoparga\SzamlazzHu\Contracts\ArrayableItem;
 use zoparga\SzamlazzHu\Invoice;
 use Zsolt148\Szamlazzhu\Events\CreateInvoiceEvent;
-use Zsolt148\Szamlazzhu\Interfaces\Invoiceable;
+use Zsolt148\Szamlazzhu\Contracts\Invoiceable;
 use Zsolt148\Szamlazzhu\Models\Invoice as InvoiceModel;
 
 class InvoiceService extends Service
